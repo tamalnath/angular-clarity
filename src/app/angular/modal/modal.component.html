@@ -1,15 +1,50 @@
-<div class="modal">
-    <div class="modal-dialog fadeDown in" role="dialog" aria-hidden="true">
-      <div class="modal-content">
-        <h3 class="modal-title">Modal title</h3>
-        <div class="modal-body">
-          <p>Moday body</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="openModal = false">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="openModal = false">Ok</button>
-        </div>
-          </div>
+<button type="button" class="btn btn-outline" (click)="open = true">Edit values</button>
+<ul>
+    <li>Name: {{name}}</li>
+    <li>Address: {{address}}</li>
+    <li>City: {{city}}</li>
+    <li>State: {{state}}</li>
+    <li>Permanent Address: {{permanent}}</li>
+</ul>
+<clr-modal [(clrModalOpen)]="open">
+    <h3 class="modal-title">User Form</h3>
+    <div class="modal-body">
+        <form class="clr-form clr-form-horizontal">
+            <div class="clr-form-control">
+              <label for="name" class="clr-control-label">Name</label>
+              <div class="clr-control-container">
+                <div class="clr-input-wrapper">
+                  <input type="text" id="name" name="name" [(ngModel)]="form.name" placeholder="Enter Name" clrInput required />
+                </div>
+                <clr-control-helper>Tuhi, Tisha, etc.</clr-control-helper>
+              </div>
+            </div>
+            <div class="clr-form-control">
+                <label for="address" class="clr-control-label">Address</label>
+                <div class="clr-control-container">
+                  <div class="clr-textarea-wrapper">
+                    <textarea id="address" name="address" [(ngModel)]="form.address" placeholder="Enter Address" class="clr-textarea"></textarea>
+                  </div>
+                  <clr-control-helper>House #, Street</clr-control-helper>
+                </div>
+              </div>
+              <clr-combobox-container>
+                <label for="city">City</label>
+                <clr-combobox [(ngModel)]="form.city" name="city" required>
+                  <clr-options>
+                    <clr-option *clrOptionItems="let cityState of cityStates | keyvalue" [clrValue]="cityState.key">{{cityState.key}} ({{cityState.value}})</clr-option>
+                  </clr-options>
+                </clr-combobox>
+                <clr-control-helper>E.g. Kolkata</clr-control-helper>
+              </clr-combobox-container>
+              <clr-checkbox-wrapper>
+                <input type="checkbox" clrCheckbox name="permanent" required value="permanent" [(ngModel)]="form.permanent" />
+                <label>Permanent Address</label>
+              </clr-checkbox-wrapper>
+        </form>
     </div>
-  </div>
-<div class="modal-backdrop fade in" aria-hidden="true"></div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="open = false">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+    </div>
+</clr-modal>

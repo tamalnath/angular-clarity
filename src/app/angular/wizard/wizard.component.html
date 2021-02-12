@@ -1,1 +1,23 @@
-<p>wizard works!</p>
+<button type="button" class="btn btn-outline" (click)="open = true">Edit values</button>
+
+<clr-wizard [(clrWizardOpen)]="open">
+    <clr-wizard-title>Details Wizard</clr-wizard-title>
+
+    <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+    <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+    <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+    <clr-wizard-button [type]="'finish'">Done</clr-wizard-button>
+
+    <clr-wizard-page>
+        <ng-template clrPageTitle>Page 1</ng-template>
+        <ng-template clrPageNavTitle>PAGE 1</ng-template>
+        <p>hello</p>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+        <ng-template clrPageTitle>Page 2</ng-template>
+        <ng-template clrPageNavTitle>PAGE 2</ng-template>
+        <p>hello</p>
+    </clr-wizard-page>
+
+</clr-wizard>
