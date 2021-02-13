@@ -1,50 +1,55 @@
 <button type="button" class="btn btn-outline" (click)="open = true">Edit values</button>
 <ul>
-    <li>Name: {{name}}</li>
-    <li>Address: {{address}}</li>
-    <li>City: {{city}}</li>
-    <li>State: {{state}}</li>
-    <li>Permanent Address: {{permanent}}</li>
+  <li>Name: {{name}}</li>
+  <li>Date of birth: {{dateOfBirth}}</li>
+  <li>Address: {{address}}</li>
+  <li>City: {{city}}</li>
+  <li>State: {{state}}</li>
+  <li>Permanent Address: {{permanent}}</li>
 </ul>
 <clr-modal [(clrModalOpen)]="open">
-    <h3 class="modal-title">User Form</h3>
-    <div class="modal-body">
-        <form class="clr-form clr-form-horizontal">
-            <div class="clr-form-control">
-              <label for="name" class="clr-control-label">Name</label>
-              <div class="clr-control-container">
-                <div class="clr-input-wrapper">
-                  <input type="text" id="name" name="name" [(ngModel)]="form.name" placeholder="Enter Name" clrInput required />
-                </div>
-                <clr-control-helper>Tuhi, Tisha, etc.</clr-control-helper>
-              </div>
-            </div>
-            <div class="clr-form-control">
-                <label for="address" class="clr-control-label">Address</label>
-                <div class="clr-control-container">
-                  <div class="clr-textarea-wrapper">
-                    <textarea id="address" name="address" [(ngModel)]="form.address" placeholder="Enter Address" class="clr-textarea"></textarea>
-                  </div>
-                  <clr-control-helper>House #, Street</clr-control-helper>
-                </div>
-              </div>
-              <clr-combobox-container>
-                <label for="city">City</label>
-                <clr-combobox [(ngModel)]="form.city" name="city" required>
-                  <clr-options>
-                    <clr-option *clrOptionItems="let cityState of cityStates | keyvalue" [clrValue]="cityState.key">{{cityState.key}} ({{cityState.value}})</clr-option>
-                  </clr-options>
-                </clr-combobox>
-                <clr-control-helper>E.g. Kolkata</clr-control-helper>
-              </clr-combobox-container>
-              <clr-checkbox-wrapper>
-                <input type="checkbox" clrCheckbox name="permanent" required value="permanent" [(ngModel)]="form.permanent" />
-                <label>Permanent Address</label>
-              </clr-checkbox-wrapper>
-        </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline" (click)="open = false">Cancel</button>
-      <button type="button" class="btn btn-primary" (click)="save()">Save</button>
-    </div>
+  <h3 class="modal-title">User Form</h3>
+  <div class="modal-body">
+    <form clrForm>
+      <clr-input-container>
+        <label>Name</label>
+        <input clrInput placeholder="Enter Name" name="name" [(ngModel)]="form.name" required />
+        <clr-control-helper>Tuhi, Tisha, etc.</clr-control-helper>
+        <clr-control-error>Name cannot be empty</clr-control-error>
+      </clr-input-container>
+      <clr-date-container>
+        <label>Date of birth</label>
+        <input type="date" clrDate placeholder="Enter date of birth" name="dateOfBirth" [(ngModel)]="form.dateOfBirth" required />
+        <clr-control-helper>26/01/1950</clr-control-helper>
+        <clr-control-error>Date of birth cannot be empty.</clr-control-error>
+      </clr-date-container>
+      <clr-textarea-container>
+        <label>Address</label>
+        <textarea clrTextarea [(ngModel)]="form.address" name="address" placeholder="Enter Address" required></textarea>
+        <clr-control-helper>House #, Street</clr-control-helper>
+        <clr-control-error>Address cannot be empty</clr-control-error>
+      </clr-textarea-container>
+      <clr-datalist-container>
+        <label for="city" class="clr-control-label">City</label>
+        <input clrDatalistInput [(ngModel)]="form.city" placeholder="Enter City" name="city" required />
+        <datalist>
+          <option *ngFor="let cityState of cityStates | keyvalue" [value]="cityState.key">{{cityState.value}}</option>
+        </datalist>
+        <clr-control-helper>Helper text</clr-control-helper>
+        <clr-control-error>City cannot be empty</clr-control-error>
+      </clr-datalist-container>
+      <clr-toggle-container>
+        <label>Permanent Address</label>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrToggle name="permanent" value="permanent" [(ngModel)]="form.permanent" />
+          <label>Permanent</label>
+        </clr-toggle-wrapper>
+        <clr-control-helper>Is permanent address?</clr-control-helper>
+      </clr-toggle-container>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="open = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+  </div>
 </clr-modal>

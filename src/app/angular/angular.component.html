@@ -1,16 +1,15 @@
 <div class="content-container">
-    <nav class="sidenav">
-        <section class="sidenav-content">
-          <section class="nav-group">
-            <ul class="nav-list">
-                <li><a class="nav-link" routerLink="modal" routerLinkActive="active">Modal</a></li>
-                <li><a class="nav-link" routerLink="wizard" routerLinkActive="active">Wizard</a></li>
-            </ul>
-          </section>
-        </section>
-      </nav>
-    <div class="content-area">
-        <h3>Clarity Angular components</h3>
-        <router-outlet></router-outlet>
-    </div>
+  <nav class="sidenav">
+    <section class="sidenav-content">
+      <section class="nav-group">
+        <ul class="nav-list">
+          <li><a class="nav-link" routerLink="modal" routerLinkActive="active">Modal</a></li>
+          <li><a class="nav-link" routerLink="wizard" routerLinkActive="active">Wizard</a></li>
+        </ul>
+      </section>
+    </section>
+  </nav>
+  <div class="content-area">
+    <router-outlet></router-outlet>
+  </div>
 </div>
