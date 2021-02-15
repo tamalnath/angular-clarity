@@ -2,6 +2,7 @@
 <ul>
   <li>Name: {{name}}</li>
   <li>Date of birth: {{dateOfBirth}}</li>
+  <li>Age: {{age}}</li>
   <li>Address: {{address}}</li>
   <li>City: {{city}}</li>
   <li>State: {{state}}</li>
@@ -11,57 +12,62 @@
 <clr-wizard [(clrWizardOpen)]="open">
   <clr-wizard-title>Details Wizard</clr-wizard-title>
 
-  <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
-  <clr-wizard-button [type]="'previous'">Previous</clr-wizard-button>
-  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
-  <clr-wizard-button [type]="'finish'" (click)="save()">Finish</clr-wizard-button>
+  <clr-wizard-button type="cancel">Cancel</clr-wizard-button>
+  <clr-wizard-button type="previous">Previous</clr-wizard-button>
+  <clr-wizard-button type="next">Next</clr-wizard-button>
+  <clr-wizard-button type="finish" (click)="save()">Finish</clr-wizard-button>
 
-  <form clrForm>
-    <clr-wizard-page>
-      <ng-template clrPageTitle>Basic information</ng-template>
-      <ng-template clrPageNavTitle>Basic</ng-template>
+  <clr-wizard-page [clrWizardPageNextDisabled]="!form1.valid">
+    <ng-template clrPageTitle>Basic information</ng-template>
+    <ng-template clrPageNavTitle>Basic</ng-template>
+    <form clrForm [formGroup]="form1">
       <clr-input-container>
         <label>Name</label>
-        <input clrInput placeholder="Enter Name" name="name" [(ngModel)]="form.name" required />
+        <input clrInput placeholder="Enter Name" name="name" formControlName="name" minlength="2" maxlength="30"
+          required />
         <clr-control-helper>Tuhi, Tisha, etc.</clr-control-helper>
-        <clr-control-error>Name cannot be empty</clr-control-error>
+        <clr-control-error>{{getFormErrorMessage('name')}}</clr-control-error>
       </clr-input-container>
       <clr-date-container>
         <label>Date of birth</label>
-        <input type="date" clrDate placeholder="Enter date of birth" name="dateOfBirth" [(ngModel)]="form.dateOfBirth"
+        <input type="date" clrDate placeholder="Enter date of birth" name="dateOfBirth" formControlName="dateOfBirth"
           required />
-        <clr-control-helper>26/01/1950</clr-control-helper>
-        <clr-control-error>Date of birth cannot be empty.</clr-control-error>
+        <clr-control-helper>E.g. {{today | date:'shortDate'}}</clr-control-helper>
+        <clr-control-error>{{getFormErrorMessage('dateOfBirth')}}</clr-control-error>
       </clr-date-container>
-    </clr-wizard-page>
+    </form>
+  </clr-wizard-page>
 
-    <clr-wizard-page>
-      <ng-template clrPageTitle>Address of the person</ng-template>
-      <ng-template clrPageNavTitle>Address</ng-template>
+  <clr-wizard-page [clrWizardPageNextDisabled]="!form2.valid">
+    <ng-template clrPageTitle>Address of the person</ng-template>
+    <ng-template clrPageNavTitle>Address</ng-template>
+    <form clrForm [formGroup]="form2">
       <clr-textarea-container>
         <label>Address</label>
-        <textarea clrTextarea [(ngModel)]="form.address" name="address" placeholder="Enter Address" required></textarea>
+        <textarea clrTextarea formControlName="address" name="address" placeholder="Enter Address" required
+          minlength="2" maxlength="100"></textarea>
         <clr-control-helper>House #, Street</clr-control-helper>
-        <clr-control-error>Address cannot be empty</clr-control-error>
+        <clr-control-error>{{getFormErrorMessage('address')}}</clr-control-error>
       </clr-textarea-container>
       <clr-datalist-container>
         <label for="city" class="clr-control-label">City</label>
-        <input clrDatalistInput [(ngModel)]="form.city" placeholder="Enter City" name="city" required />
+        <input clrDatalistInput formControlName="city" placeholder="Enter City" name="city" required minlength="2"
+          maxlength="20" />
         <datalist>
           <option *ngFor="let cityState of cityStates | keyvalue" [value]="cityState.key">{{cityState.value}}</option>
         </datalist>
         <clr-control-helper>Helper text</clr-control-helper>
-        <clr-control-error>City cannot be empty</clr-control-error>
+        <clr-control-error>{{getFormErrorMessage('city')}}</clr-control-error>
       </clr-datalist-container>
       <clr-toggle-container>
         <label>Permanent Address</label>
         <clr-toggle-wrapper>
-          <input type="checkbox" clrToggle name="permanent" value="permanent" [(ngModel)]="form.permanent" />
+          <input type="checkbox" clrToggle name="permanent" value="permanent" formControlName="permanent" />
           <label>Permanent</label>
         </clr-toggle-wrapper>
         <clr-control-helper>Is permanent address?</clr-control-helper>
       </clr-toggle-container>
-    </clr-wizard-page>
-  </form>
+    </form>
+  </clr-wizard-page>
 
 </clr-wizard>

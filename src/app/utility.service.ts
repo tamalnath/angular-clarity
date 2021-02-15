@@ -505,7 +505,29 @@ export const CITY_STATES: Record<string, string> = {
   providedIn: 'root'
 })
 export class UtilityService {
-
+  private _name: string = "";
+  private _dateOfBirth: Date = new Date();
+  private _address: string = "";
+  private _city: string = "";
+  private _permanent: boolean = false;
 
   constructor() { }
+
+  save(name: string, dateOfBirth: string, address: string, city: string, permanent: boolean): boolean {
+    this._name = name;
+    this._dateOfBirth = new Date(dateOfBirth);
+    this._address = address;
+    this._city = city;
+    this._permanent = permanent;
+    return true;
+  }
+
+  getState(): string {
+    return CITY_STATES[this._city];
+  }
+
+  getAge(): number {
+    return Math.floor((Date.now() - this._dateOfBirth.getTime())/(1000 * 3600 * 24 * 365.25));
+  }
+
 }
